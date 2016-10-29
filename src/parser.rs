@@ -331,6 +331,9 @@ fn conv_ty(ctx: &mut ClangParserCtx, ty: &cx::Type, cursor: &Cursor) -> il::Type
                          true);
             TVoid
         }
+		CXType_Elaborated => {
+			conv_ty(ctx, &ty.get_named_type(), cursor)
+		},
         _ => {
             let fail = ctx.options.fail_on_unknown_type;
             log_err_warn(ctx,
